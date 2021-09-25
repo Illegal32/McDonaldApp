@@ -69,11 +69,11 @@ public class Index extends javax.swing.JFrame implements ActionListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
         asuser.setBackground(new java.awt.Color(255, 255, 255));
         asuser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        asuser.setText("As model.User");
+        asuser.setText("As User");
 
         asguess.setBackground(new java.awt.Color(255, 255, 255));
         asguess.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -105,7 +105,7 @@ public class Index extends javax.swing.JFrame implements ActionListener {
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 600));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\McDonaldApp\\McDonaldApp\\src\\main\\java\\images\\hungry.png")); // NOI18N

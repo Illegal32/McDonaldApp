@@ -17,10 +17,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * @author lenovo
+ * @author Illegal Boss
  */
 public class SignUp extends javax.swing.JFrame implements ActionListener {
-
     /**
      * Creates new form SignUp
      */
@@ -38,6 +37,9 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        Statement statement = SQL.getStatement();
+
         String username = usernameField.getText();
         String fin = finField.getText();
         String password = passwordField.getText();
@@ -47,70 +49,121 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         user.setFin(fin);
         user.setPassword(password);
 
-        String getByFin = String.format("select user from user where fin = %s", fin);
-
+        String getByFin = String.format("select user from user where fin= %s", fin);
         if (getByFin!=null){
-            JOptionPane.showMessageDialog(null, "This FIN is used");
-        }
-        if(getByFin==null){
-            JOptionPane.showMessageDialog(null, "Successfully registered");
+            // alert cixar de ki user artiq var
         }
 
-        SQL s = new SQL();
-        s.save();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = SQL.getConnection().prepareStatement("select max(id) as max from user");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
-//        PreparedStatement preparedStatement = null;
-//        try {
-//            preparedStatement = SQL.getConnection().prepareStatement("select max(id) as max from user ");
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//
-//        ResultSet resultSet = null;
-//        try {
-//            resultSet = preparedStatement.executeQuery();
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
-//
-//        Integer id = null;
-//        if (resultSet != null) {
-//            try {
-//                if (resultSet.next()) {
-//                    id = resultSet.getInt("max");
-//                }
-//            } catch (SQLException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//
-//        if (id == null)
-//            user.setId(1);
-//        else user.setId(id + 1);
-//
+        Integer id = null;
+        if (resultSet != null) {
+            try {
+                if (resultSet.next()) {
+                    id = resultSet.getInt("max");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (id == null)
+            user.setId(1);
+        else user.setId(id + 1);
+        String sql = String.format("insert into user (id, username, fin, password) values (%s, '%s', '%s','%s')",
+                user.getId(),
+                user.getUsername(),
+                user.getFin(),
+                user.getPassword());
+        try {
+            statement.execute(sql);
+            System.out.println("Successfully registered");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
+//        String username = usernameField.getText();
+//        String fin = finField.getText();
+//        String password = passwordField.getText();
+//
+//        User user = new User();
+//        user.setUsername(username);
+//        user.setFin(fin);
+//        user.setPassword(password);
+//
+//        String getByFin = String.format("select user from user where fin = %s", fin);
 
-//        String sql = String.format("insert into patient (id, fin, name, surname) values (%s, '%s', '%s','%s' )",
-//                patient.getId(),
-//                patient.getFin(),
-//                patient.getName(),
-//                patient.getSurname());
-//        try {
-//            statement.execute(sql);
-//            System.out.println("Successfully registered");
-//        } catch (SQLException ex) {
-//            ex.printStackTrace();
-//        }
+//        SQL s = new SQL();
+//        s.save();
+//
+////        PreparedStatement preparedStatement = null;
+////        try {
+////            preparedStatement = SQL.getConnection().prepareStatement("select max(id) as max from user ");
+////        } catch (SQLException ex) {
+////            ex.printStackTrace();
+////        }
+////
+////
+////        ResultSet resultSet = null;
+////        try {
+////            resultSet = preparedStatement.executeQuery();
+////        } catch (SQLException ex) {
+////            ex.printStackTrace();
+////        }
+////
+////        Integer id = null;
+////        if (resultSet != null) {
+////            try {
+////                if (resultSet.next()) {
+////                    id = resultSet.getInt("max");
+////                }
+////            } catch (SQLException ex) {
+////                ex.printStackTrace();
+////            }
+////        }
+////
+////        if (id == null)
+////            user.setId(1);
+////        else user.setId(id + 1);
+////
+//
+//
+////        String sql = String.format("insert into patient (id, fin, name, surname) values (%s, '%s', '%s','%s' )",
+////                patient.getId(),
+////                patient.getFin(),
+////                patient.getName(),
+////                patient.getSurname());
+////        try {
+////            statement.execute(sql);
+////            System.out.println("Successfully registered");
+////        } catch (SQLException ex) {
+////            ex.printStackTrace();
+////        }
 
         if (e.getSource() == back) {
             Index l = new Index();
             dispose();
             l.setVisible(true);
         } else if (e.getSource() == signup) {
-            MainMenu l = new MainMenu();
-            dispose();
-            l.setVisible(true);
+//            if (getByFin!=null){
+//                JOptionPane.showMessageDialog(null, "This FIN is used");
+//            }
+//            if(getByFin==null){
+//                JOptionPane.showMessageDialog(null, "Successfully registered");
+                MainMenu l = new MainMenu();
+                dispose();
+                l.setVisible(true);
+//            }
         } else if (e.getSource() == login) {
             LogIn l = new LogIn();
             dispose();
@@ -149,7 +202,7 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 600));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Administrator\\Desktop\\McDonaldApp\\McDonaldApp\\src\\main\\java\\images\\hungry.png")); // NOI18N
@@ -171,7 +224,7 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
                 .addGap(160, 160, 160))
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(255, 0, 0));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -195,7 +248,7 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
         finField.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         finField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        finField.setText("Fin");
+        finField.setText("");
 
         passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         passwordField.setText("00000");
