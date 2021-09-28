@@ -40,9 +40,9 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
         Statement statement = SQL.getStatement();
 
-        String username = usernameField.getText();
-        String fin = finField.getText();
-        String password = passwordField.getText();
+        String username = usernamebutton.getText();
+        String fin = finbutton.getText();
+        String password = passwordbutton.getText();
 
         User user = new User();
         user.setUsername(username);
@@ -56,15 +56,20 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = SQL.getConnection().prepareStatement("select max(id) as max from user");
+            preparedStatement = SQL.getConnection().prepareStatement("select max(id) as max from user1");
+            System.out.println("line 60");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("line 63");
         }
         ResultSet resultSet = null;
         try {
+            assert preparedStatement != null;
             resultSet = preparedStatement.executeQuery();
+            System.out.println("69");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            System.out.println("72");
         }
 
         Integer id = null;
@@ -73,13 +78,20 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
                 if (resultSet.next()) {
                     id = resultSet.getInt("max");
                 }
+                System.out.println("line 81");
             } catch (SQLException ex) {
                 ex.printStackTrace();
+                System.out.println("84");
             }
         }
-        if (id == null)
+        if (id == null) {
             user.setId(1);
-        else user.setId(id + 1);
+            System.out.println("line null ");
+        }
+        else {
+            user.setId(id + 2);
+            System.out.println(id);
+        }
         String sql = String.format("insert into user (id, username, fin, password) values (%s, '%s', '%s','%s')",
                 user.getId(),
                 user.getUsername(),
@@ -188,9 +200,9 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
-        finField = new javax.swing.JTextField();
-        passwordField = new javax.swing.JPasswordField();
+        usernamebutton = new javax.swing.JTextField();
+        finbutton = new javax.swing.JTextField();
+        passwordbutton = new javax.swing.JPasswordField();
         signup = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
@@ -242,16 +254,31 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        usernameField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        usernameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        usernameField.setText("UserName");
+        usernamebutton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        usernamebutton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernamebutton.setText("UserName");
+        usernamebutton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernamebuttonFocusGained(evt);
+            }
+        });
 
-        finField.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        finField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        finField.setText("");
+        finbutton.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        finbutton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        finbutton.setText("Fin");
+        finbutton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                finbuttonFocusGained(evt);
+            }
+        });
 
-        passwordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        passwordField.setText("00000");
+        passwordbutton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordbutton.setText("00000");
+        passwordbutton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordbuttonFocusGained(evt);
+            }
+        });
 
         signup.setBackground(new java.awt.Color(255, 255, 255));
         signup.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -325,9 +352,9 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
                                                 .addComponent(jLabel5)))
                                         .addGap(50, 50, 50)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(finField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                            .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                            .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                                            .addComponent(finbutton, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                            .addComponent(usernamebutton, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                            .addComponent(passwordbutton, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                                         .addGap(58, 58, 58)))))))
                 .addContainerGap(162, Short.MAX_VALUE))
         );
@@ -341,17 +368,17 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(usernameField)
+                    .addComponent(usernamebutton)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(finField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(finbutton, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordField)
+                    .addComponent(passwordbutton)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(signup, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,6 +417,19 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void usernamebuttonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernamebuttonFocusGained
+        usernamebutton.setText("");
+    }//GEN-LAST:event_usernamebuttonFocusGained
+
+    private void finbuttonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_finbuttonFocusGained
+        finbutton.setText("");
+    }//GEN-LAST:event_finbuttonFocusGained
+
+    private void passwordbuttonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordbuttonFocusGained
+        // TODO add your handling code here:
+        passwordbutton.setText("");
+    }//GEN-LAST:event_passwordbuttonFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -427,7 +467,7 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-    private javax.swing.JTextField finField;
+    private javax.swing.JTextField finbutton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -442,8 +482,8 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton login;
-    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JPasswordField passwordbutton;
     private javax.swing.JButton signup;
-    private javax.swing.JTextField usernameField;
+    private javax.swing.JTextField usernamebutton;
     // End of variables declaration//GEN-END:variables
 }

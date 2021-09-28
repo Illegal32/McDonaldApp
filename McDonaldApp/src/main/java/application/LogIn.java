@@ -58,8 +58,8 @@ public class LogIn extends JFrame implements ActionListener {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        usernameButton = new javax.swing.JTextField();
+        passwordbutton = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -96,24 +96,34 @@ public class LogIn extends JFrame implements ActionListener {
 
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
-        jTextField1.setBackground(new java.awt.Color(51, 255, 153));
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Username");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        usernameButton.setBackground(new java.awt.Color(51, 255, 153));
+        usernameButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        usernameButton.setForeground(new java.awt.Color(153, 153, 153));
+        usernameButton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameButton.setText("Username");
+        usernameButton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameButtonFocusGained(evt);
+            }
+        });
+        usernameButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameButtonActionPerformed(evt);
             }
         });
 
-        jPasswordField1.setBackground(new java.awt.Color(102, 255, 51));
-        jPasswordField1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPasswordField1.setText("password");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passwordbutton.setBackground(new java.awt.Color(102, 255, 51));
+        passwordbutton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passwordbutton.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordbutton.setText("password");
+        passwordbutton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordbuttonFocusGained(evt);
+            }
+        });
+        passwordbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordbuttonActionPerformed(evt);
             }
         });
 
@@ -177,8 +187,8 @@ public class LogIn extends JFrame implements ActionListener {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1)
+                        .addComponent(usernameButton)
+                        .addComponent(passwordbutton)
                         .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -200,11 +210,11 @@ public class LogIn extends JFrame implements ActionListener {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,13 +253,13 @@ public class LogIn extends JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usernameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usernameButtonActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordbuttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordbuttonActionPerformed
 
     private void signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupActionPerformed
         // TODO add your handling code here:
@@ -258,6 +268,15 @@ public class LogIn extends JFrame implements ActionListener {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_backActionPerformed
+
+    private void usernameButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameButtonFocusGained
+        // TODO add your handling code here:
+        usernameButton.setText("");
+    }//GEN-LAST:event_usernameButtonFocusGained
+
+    private void passwordbuttonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordbuttonFocusGained
+        passwordbutton.setText("");
+    }//GEN-LAST:event_passwordbuttonFocusGained
 
     /**
      * @param args the command line arguments
@@ -304,11 +323,11 @@ public class LogIn extends JFrame implements ActionListener {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton login;
+    private javax.swing.JPasswordField passwordbutton;
     private javax.swing.JButton signup;
+    private javax.swing.JTextField usernameButton;
     // End of variables declaration//GEN-END:variables
 }
