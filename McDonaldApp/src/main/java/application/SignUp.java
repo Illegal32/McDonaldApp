@@ -49,7 +49,7 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
         user.setFin(fin);
         user.setPassword(password);
 
-        String getByFin = String.format("select user from user where fin= %s", fin);
+        String getByFin = String.format("select user1 from user1 where fin= %s", fin);
         if (getByFin!=null){
             // alert cixar de ki user artiq var
         }
@@ -92,11 +92,12 @@ public class SignUp extends javax.swing.JFrame implements ActionListener {
             user.setId(id + 2);
             System.out.println(id);
         }
-        String sql = String.format("insert into user (id, username, fin, password) values (%s, '%s', '%s','%s')",
+        String sql = String.format("insert into user1 (id, username, fin, password) values (%s, '%s', '%s','%s');",
                 user.getId(),
                 user.getUsername(),
                 user.getFin(),
                 user.getPassword());
+        System.out.println(sql);
         try {
             statement.execute(sql);
             System.out.println("Successfully registered");
